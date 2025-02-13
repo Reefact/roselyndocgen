@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoselynDocGen.SampleProject", "RoselynDocGen.SampleProject\RoselynDocGen.SampleProject.csproj", "{D09859E8-E194-499C-9E3C-B30F7A63A195}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{D8BB30B2-52F6-45A3-B292-7A1FE8314887}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8BB30B2-52F6-45A3-B292-7A1FE8314887}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8BB30B2-52F6-45A3-B292-7A1FE8314887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D09859E8-E194-499C-9E3C-B30F7A63A195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D09859E8-E194-499C-9E3C-B30F7A63A195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D09859E8-E194-499C-9E3C-B30F7A63A195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D09859E8-E194-499C-9E3C-B30F7A63A195}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +73,6 @@ Global
 		{5132368B-42B3-43CA-A5CE-C7C579B990FA} = {0CC1788F-1819-4BAD-9271-3DF2F8E8E63E}
 		{B71D7852-9680-40BC-A06E-C8F2E80AF1A3} = {0CC1788F-1819-4BAD-9271-3DF2F8E8E63E}
 		{D8BB30B2-52F6-45A3-B292-7A1FE8314887} = {0CC1788F-1819-4BAD-9271-3DF2F8E8E63E}
+		{D09859E8-E194-499C-9E3C-B30F7A63A195} = {0CC1788F-1819-4BAD-9271-3DF2F8E8E63E}
 	EndGlobalSection
 EndGlobal
