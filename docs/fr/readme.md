@@ -1,6 +1,6 @@
 # RoselynDocGen
 
-## 1. Présentation
+## Présentation
 
 **RoselynDocGen** est une bibliothèque modulaire qui permet aux équipes de documenter leur architecture logicielle à partir du code source d’une solution .NET. Elle s’intègre naturellement aux workflows de développement et d’intégration continue.
 
@@ -8,7 +8,7 @@ Chaque équipe peut facilement développer ses propres générateurs de document
 
 La génération de documentation peut être déclenchée à la demande, soit localement par un développeur, soit dans un pipeline CI/CD en s'intégrant ainsi naturellement aux processus de déploiement et d’intégration continue.
 
-## 2. Architecture générale
+## Architecture générale
 
 RoselynDocGen est composé de deux éléments principaux :
 
@@ -22,39 +22,75 @@ Le cœur du système est responsable de l'analyse syntaxique du code et de la ge
 - Exécute les générateurs en parallèle pour améliorer les performances.
 - Le `CSharpSyntaxWalker` global du Core parcourt l'ensemble du code une seule fois, tandis que les traitements effectués par les générateurs, qui fonctionnent indépendamment les uns des autres, sont parallélisés.
 
-### **Générateurs**
+### Générateurs
 
 Les générateurs sont des modules indépendants, chacun étant spécialisé dans un type de documentation.
 
 Chaque générateur :
-
 - Implémente son propre `CSharpSyntaxWalker`.
 - Génère un fichier de documentation sous un format spécifique.
 - Peut être ajouté ou retiré via la configuration.
 
-## 3. Configuration et exécution
+## Configuration et exécution
 
-### **Configuration**
+### Configuration
 
-La configuration se fait directement en C# :
+La configuration de la génération de documentation se fait via un fichier `docgen.json` placé à la racine du projet. Ce fichier décrit les documents à générer, leur type et leurs options spécifiques.
 
-```csharp
-var config = DocumentationConfig.Configure()
-    .UseGenerator<ClassDiagramGenerator>(options => 
-    {
-        options.SetOutputPath("docs/class-diagram.mmd");
-        options.IncludePrivateMembers = true;
-    });
-
-DocumentationGenerator.Run(config);
+📌 Exemple de configuration :
+```json
+{
+  "documents": {
+    "classDiagramWithoutPrivateMembers": {
+      "type": "ClassDiagram",
+      "description": "Diagramme de classe sans les membres privés",
+      "outputFile": "class-diagram.mmd",
+      "includePrivateMembers": false
+    }
+  }
+}
 ```
 
-### **Exécution via CLI**
+📌 Principes :
+- Chaque document est défini par un nom unique.
+- Le champ `type` indique le type de générateur utilisé.
+- Une description optionnelle peut être fournie pour faciliter l’analyse des logs.
+- Les options spécifiques de ce type de document.
 
-Une fois configuré, RoselynDocGen peut être exécuté avec la commande suivante :
+### Exécution
 
-```shell
-docgen generate
+Une fois configuré, la génération de documentation peut être déclenchée via la CLI en utilisant `docgen` :
+
+```sh
+docgen generate --project src/MyProjectA
 ```
 
-Cette approche permet de déclencher la génération à la demande, sans impacter les temps de compilation.
+### Intégration CI/CD
+
+RoselynDocGen peut être utilisé dans un pipeline CI/CD.
+
+📌 Exemple avec GitHub Actions :
+```yaml
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build src/MyProjectA --configuration Release
+
+      - name: Generate documentation
+        run: docgen generate --project src/MyProjectA --output docs
+```
+
+Cette approche permet d’automatiser la génération de documentation tout en garantissant une cohérence entre les environnements de développement et de production.
