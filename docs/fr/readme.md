@@ -59,7 +59,7 @@ La configuration de la génération de documentation se fait via un fichier `doc
 
 ### Exécution
 
-Une fois configuré, la génération de documentation peut être déclenchée via la CLI en utilisant `docgen` :
+Une fois configuré, la génération de documentation peut être déclenchée via la CLI en utilisant [`docgen`](docgen.md) :
 
 ```sh
 docgen generate --project src/MyProjectA
